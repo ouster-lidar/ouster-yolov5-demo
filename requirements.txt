@@ -1,0 +1,4 @@
+torch>=2.0.0
+ouster-sdk>=0.8.1
+
+#TODO: add remaining requirements.txt
