@@ -27,7 +27,7 @@ pip install -r requirements.txt
 The repo [yolov5-ouster-lidar-data](https://github.com/ouster-lidar/yolov5-ouster-lidar-data) contains some sample lidar data that you could use with the provided python examples. The two files `Ouster-YOLOv5-sample.json` and `Ouster-YOLOv5-sample.pcap` are currently expected to sit next to python scripts. 
 
 ### Ouster YOLOv5 Demo with OpenCV
-![Ouster YOLOv5 Demo](./yolo5_opencv.py)
+[Ouster YOLOv5 Demo](./yolo5_opencv.py)
 
 ### Ouster YOLOv5 Demo with SimplViz
-![Ouster YOLOv5 Demo / SimpleViz](./yolo5_simpleviz.py)
+[Ouster YOLOv5 Demo / SimpleViz](./yolo5_simpleviz.py)
