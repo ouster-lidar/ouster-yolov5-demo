@@ -13,7 +13,7 @@ start we recommend using the Google Colab demo since it has additional notes.
     - [Ouster YOLOv5 Demo with SimplViz](#ouster-yolov5-demo-with-simplviz)
 
 ## Running the demo on Google Colab
-Follow the link ![Ouster_Yolo5_Demo](./Ouster_Yolo5_Demo.ipynb) to run the demo
+Follow the link [Ouster_Yolo5_Demo](./Ouster_Yolo5_Demo.ipynb) to run the demo
 using Google Colab
 
 ## Running the demo locally
