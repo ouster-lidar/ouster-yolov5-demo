@@ -79,8 +79,8 @@ post_processors = {
 def get_frame_from_scan(scan, channel):
     image = scan.field(channel).astype(np.float32)
     image = client.destagger(scan_capture.sensor_info, image)
+    post_processors[channel](image)
     return image
-
 
 
 # extract the scan width x heigh x fps information from the json file
@@ -104,7 +104,6 @@ def process_scan(scan: LidarScan) -> LidarScan:
 
     for  f in fields:
         frame = get_frame_from_scan(scan, f)
-        post_processors[f](frame)
         results = model_infer(model, frame)
         draw_results(frame, results)
         # Stagger the frame again before storing the results again
