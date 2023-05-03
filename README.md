@@ -1,18 +1,24 @@
 # ouster-yolov5-demo
+This repo contains sample code on how to utilize Ouster Lidar Data to perform
+common image processing tasks like object detection classification using YOLOv5.
+The sample codes can be ran locally or using Google Colab Notebooks. For a quick
+start we recommend using the Google Colab demo since it has additional notes.
 
-- [Running the demo on Google colab](#running-the-demo-on-google-colab)
-- [Running the demo locally](#running-the-demo-locally)
+- [ouster-yolov5-demo](#ouster-yolov5-demo)
+  - [Running the demo on Google Colab](#running-the-demo-on-google-colab)
+  - [Running the demo locally](#running-the-demo-locally)
     - [Requirements](#requirements)
     - [Getting Lidar Data](#getting-lidar-data)
     - [Ouster YOLOv5 Demo with OpenCV](#ouster-yolov5-demo-with-opencv)
-    - [Ouster YOLOv5 Demo with SimpleViz](#ouster-yolov5-demo-with-simplviz)
-## Running the demo on Google colab
-Follow the link ![Ouster_Yolo5_Demo](./Ouster_Yolo5_Demo.ipynb) to run the demo using Google Colab
+    - [Ouster YOLOv5 Demo with SimplViz](#ouster-yolov5-demo-with-simplviz)
+
+## Running the demo on Google Colab
+Follow the link ![Ouster_Yolo5_Demo](./Ouster_Yolo5_Demo.ipynb) to run the demo
+using Google Colab
 
 ## Running the demo locally
 
 ### Requirements
-TODO: Complete the list of requirements
 ```bash
 pip install -r requirements.txt
 ```
