@@ -60,11 +60,14 @@ def model_infer(model, frame):
     class_indices = results.pred[0][:, -1].int()
     return results.pred[0][class_indices == 0, :4]
 
+
 def draw_results(image, objects):
     for box in objects:
         x1, y1, x2, y2 = map(int, box)
         cv2.rectangle(image, (x1, y1), (x2, y2), (0, 1, 0), 1)
-
+        cv2.putText(image,'person', (x1, y1),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.4, (0, 1, 0), 1, 2)
 
 # create a post processor for every channel to perform auto leveling
 post_processors = {
@@ -77,9 +80,8 @@ post_processors = {
 def get_frame_from_scan(scan, channel):
     image = scan.field(channel).astype(np.float32)
     image = client.destagger(scan_capture.sensor_info, image)
+    post_processors[channel](image)
     return image
-
-
 
 # extract the scan width x heigh x fps information from the json file
 def get_scan_size_and_fps(metadata_path):
@@ -91,7 +93,7 @@ def get_scan_size_and_fps(metadata_path):
         h = len(data["beam_altitude_angles"])
         fps = int(lidar_mode[1])
         return w, h, fps
-    
+
 scan_width, scan_height, scan_fps = get_scan_size_and_fps('./Ouster-YOLOv5-sample.json')
 
 video_fps = scan_fps    # apply the same fps to the video size
@@ -103,24 +105,18 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter('output.avi', fourcc, video_fps, video_size)
 
 def run():
-    global post_processors
 
     ret, scan = scan_capture.read()
 
     if not ret:
         return True
 
-    def get_frame_from_scan(scan, channel):
-        image = scan.field(channel).astype(np.float32)
-        image = client.destagger(scan_capture.sensor_info, image)
-        return image
 
     fields = [ChanField.RANGE, ChanField.SIGNAL, ChanField.REFLECTIVITY, ChanField.NEAR_IR]
     images = [None] * len(fields)
 
     for i in range(len(fields)):
         images[i] = get_frame_from_scan(scan, fields[i])
-        post_processors[fields[i]](images[i])
         results = model_infer(model, images[i])
         # convert to a colored image
         images[i] = cv2.cvtColor(images[i], cv2.COLOR_GRAY2BGR)
