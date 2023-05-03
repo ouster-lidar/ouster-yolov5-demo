@@ -111,7 +111,6 @@ def run():
     if not ret:
         return True
 
-
     fields = [ChanField.RANGE, ChanField.SIGNAL, ChanField.REFLECTIVITY, ChanField.NEAR_IR]
     images = [None] * len(fields)
 
