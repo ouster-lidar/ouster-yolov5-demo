@@ -13,8 +13,8 @@ from ouster.client._utils import AutoExposure
 
 class ScanCapture:
     def __init__(self, source, loop=True) -> None:
-        self._open_pcap(source)
         self._loop = loop
+        self._open_pcap(source)
     @property
     def sensor_info(self):
         return self._info
@@ -30,14 +30,11 @@ class ScanCapture:
         else:
             print("error opening the stream")
         # Use this only on short clips
-        self._scans_loop = itertools.cycle(self._scans)
+        self._scans_loop = itertools.cycle(self._scans) if self._loop else None
     def _read(self):
-        if self._loop == True:
-            for s in self._scans_loop:
-                yield s
-        else:
-            for s in self._scans:
-                yield s
+        scans = self._scans_loop if self._loop else self._scans
+        for s in scans:
+            yield s
     def read(self) -> LidarScan:
         try:
             return True, next(self._read())
