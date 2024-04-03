@@ -18,7 +18,7 @@ def model_infer(model, frame):
     return results.pred[0][class_indices == 0, :4]
 
 
-def draw_results(image, objects, sensor_info, scan, xyzlut):
+def overlay_results(image, objects, sensor_info, scan, xyzlut):
     """draw detected persons with distance"""
     xyz_destaggered = client.destagger(sensor_info, xyzlut(scan))
     range_val = scan.field(ChanField.RANGE).astype(np.float32)
@@ -98,7 +98,7 @@ def run():
             results = model_infer(model, images[i])
             # convert to a colored image
             images[i] = cv2.cvtColor(images[i], cv2.COLOR_GRAY2BGR)
-            draw_results(images[i], results,
+            overlay_results(images[i], results,
                          scan_source.metadata, scan, xyzlut)
         end = time.time()
         sleep_period = 1.0 / scan_fps - (end - start)

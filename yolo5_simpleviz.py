@@ -12,6 +12,8 @@ from ouster.sdk import open_source
 
 from ouster.sdk.viz import SimpleViz
 
+SCAN_FPS = 10
+
 
 def model_infer(model, frame):
     image = Image.fromarray(frame * 255)
@@ -20,7 +22,7 @@ def model_infer(model, frame):
     return results.pred[0][class_indices == 0, :4]
 
 
-def draw_results(image, objects):
+def overlay_results(image, objects):
     for box in objects:
         x1, y1, x2, y2 = map(int, box)
         cv2.rectangle(image, (x1, y1), (x2, y2), (0, 1, 0), 1)
@@ -46,17 +48,18 @@ def process_scan(scan: LidarScan) -> LidarScan:
     global post_processors
 
     fields = [ChanField.SIGNAL, ChanField.REFLECTIVITY, ChanField.NEAR_IR]
-
+    start = time.time()
     for f in fields:
         frame = get_frame_from_scan(scan, f)
         results = model_infer(model, frame)
-        draw_results(frame, results)
+        overlay_results(frame, results)
         # Stagger the frame again before storing the results again
         scan.field(f)[:] = client.destagger(scan_source.metadata,
                                             frame * 255, inverse=True)
-
-    time.sleep(0.033)
-
+    end = time.time()
+    sleep_period = 1.0 / SCAN_FPS - (end - start)
+    if sleep_period > 0:
+        time.sleep(sleep_period)
     return scan
 
 
