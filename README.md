@@ -4,6 +4,8 @@ common image processing tasks like object detection classification using YOLOv5.
 The sample codes can be ran locally or using Google Colab Notebooks. For a quick
 start we recommend using the Google Colab demo since it has additional notes.
 
+![Intro Image](./media/intro.png)
+
 - [ouster-yolov5-demo](#ouster-yolov5-demo)
   - [Running the demo on Google Colab](#running-the-demo-on-google-colab)
   - [Running the demo locally](#running-the-demo-locally)
@@ -13,8 +15,8 @@ start we recommend using the Google Colab demo since it has additional notes.
     - [Ouster YOLOv5 Demo with SimplViz](#ouster-yolov5-demo-with-simplviz)
 
 ## Running the demo on Google Colab
-Follow the link [Ouster_Yolo5_Demo](./Ouster_Yolo5_Demo.ipynb) to run the demo
-using Google Colab
+
+Follow the link <a href="https://colab.research.google.com/github/Samahu/ouster-yolov5-demo/blob/use-updated-scan-source/Ouster_Yolo5_Demo.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> to run the demo using Google Colab
 
 ## Running the demo locally
 
