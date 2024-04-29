@@ -3,7 +3,6 @@ import cv2
 import numpy as np
 import torch
 from PIL import Image
-import itertools
 
 from ouster.sdk import client
 from ouster.sdk.client import ChanField, LidarScan
@@ -53,7 +52,8 @@ def process_scan(scan: LidarScan) -> LidarScan:
         frame = get_frame_from_scan(scan, f)
         results = model_infer(model, frame)
         overlay_results(frame, results)
-        # Stagger the frame again before storing the results again
+        # Stagger the frame again before storing the results again since
+        # simpleviz will destagger the frames
         scan.field(f)[:] = client.destagger(scan_source.metadata,
                                             frame * 255, inverse=True)
     end = time.time()
